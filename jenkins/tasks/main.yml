@@ -1,0 +1,36 @@
+---
+- name: Instalando Java 11
+  yum:
+    name: java-11-openjdk-devel
+    state: present
+
+- name: Habilitando el repositorio de Jenkins
+  shell: curl --silent --location http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo > /etc/yum.repos.d/jenkins.repo
+
+- name: Añadiendo el repositorio al sistema
+  shell: rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key
+
+- name: Instalando Daemonize
+  yum:
+    name: daemonize
+    state: present
+
+- name: Instalando jenkins.noarch
+  shell: yum -y install jenkins.noarch --nogpgcheck
+
+- name: Instalando Jenkins
+  yum:
+    name: jenkins
+    state: present
+
+- name: Iniciando el servicio de Jenkins
+  shell: systemctl start jenkins
+
+- name: Habilitando el servicio de Jenkins en el arranque
+  shell: systemctl enable jenkins
+
+- name: Abriendo el puerto 8080
+  shell: firewall-cmd --permanent --zone=public --add-port=8080/tcp
+
+- name: Reiniciando el firewall
+  shell: firewall-cmd --reload

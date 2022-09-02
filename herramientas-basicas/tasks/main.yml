@@ -1,0 +1,40 @@
+---
+- name: Instalando curl
+  yum:
+    name: curl
+    state: present
+
+- name: Instalando wget
+  yum:
+    name: wget
+    state: present
+
+- name: Instalando de git
+  yum:
+    name: git
+    state: present
+
+- name: Instalacion de maven
+  yum:
+    name: maven
+    state: present
+
+- name: Instalando netstat
+  yum:
+    name: net-tools
+    state: present
+
+- name: Instalando python3
+  yum:
+    name: python3
+    state: present
+
+- name: Instalando JDK
+  yum:
+    name: java-11-openjdk-devel
+    state: present
+
+- name: Instalando nmap
+  yum:
+    name: nmap
+    state: present

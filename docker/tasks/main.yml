@@ -1,0 +1,17 @@
+---
+- name: Instalando Docker
+  yum:
+    name: docker
+    state: present
+
+- name: Descargando Docker-Compose
+  shell: curl -L "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+
+- name: Añadiendo los permisos a Docker-Compose
+  shell: chmod +x /usr/local/bin/docker-compose
+
+- name: Iniciando servicio de Docker
+  shell: systemctl start docker
+
+- name: Habilitando el servicio de arranque de Docker
+  shell: systemctl enable docker
