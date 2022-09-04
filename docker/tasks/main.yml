@@ -15,3 +15,6 @@
 
 - name: Habilitando el servicio de arranque de Docker
   shell: systemctl enable docker
+
+- name: Habilitando el acceso a Docker
+  shell: chmod 666 /var/run/docker.sock
