@@ -38,3 +38,47 @@
   yum:
     name: nmap
     state: present
+- name: Instalando tmux
+  yum:
+    name: tmux
+    state: present
+
+- name: Instalanzo Zip
+  yum:
+    name: zip
+    state: present
+
+- name: Instalando Unzip
+  yum:
+    name: unzip
+    state: present
+
+- name: Purgando posible Gradle instalado I
+  shell: rm -rf /usr/local/gradle
+
+- name: Purgando posible Gradle instalado II
+  shell: rm -rf /usr/local/gradle-6.3-bin.zip
+
+- name: Descargando Gradle
+  shell: wget -nc https://downloads.gradle-dn.com/distributions/gradle-6.3-bin.zip -O /usr/local/gradle-6.3-bin.zip
+
+- name: Descomprimiendo la descarga de Gradle
+  shell: chdir=/usr/local unzip -o gradle-6.3-bin.zip
+
+- name: Creando carpeta para Gradle
+  shell: chdir=/usr/local mkdir gradle
+
+- name: Moviendo el descomprimido de Gradle
+  shell: chdir=/usr/local mv gradle-6.3 gradle
+
+- name: Borrando lo descargado
+  shell: rm -rf /usr/local/gradle-6.3-bin.zip
+
+- name: Creando script para que el SO localice Gradle
+  copy:
+    dest: /etc/profile.d/gradle.sh
+    content: |
+      PATH=/usr/local/gradle/gradle-6.3/bin:$PATH
+
+- name: Ejecutando el script de Gradle
+  shell: source /etc/profile.d/gradle.sh
